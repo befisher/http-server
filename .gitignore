@@ -1,0 +1,7 @@
+
+
+# Ignore ide files.
+.idea
+
+# Ignore node modules.
+node_modules
