@@ -26,6 +26,7 @@ if (3 > process.argv.length) {
 port = +process.argv[2];
 if (1 > port || 65535 < port) {
 	console.error('ERROR: unavailable port! Make sure http port is number and is limited to <0-65535>.');
+	return;
 }
 if (1024 >= port) {
 	log('WARNING: Your port is not bigger than 1024, this might cause some problems!')
@@ -61,7 +62,11 @@ app.all('*', function (req, res) {
 		},
 		headers: req.headers,
 		query: req.query,
-		body: req.body
+		body: req.body,
+		statistics: {
+			// Requested time.
+			time: +new Date()
+		}
 	};
 	log(data);
 	res.json(data);
