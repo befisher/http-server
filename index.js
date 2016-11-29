@@ -7,19 +7,23 @@
 
 'use strict';
 
+var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
 var serveStatic = require('serve-static');
 var log = console.log;
 
 var port;
+var mStaticRoot = __dirname;
 
 if (3 > process.argv.length) {
 	log('Usage:');
-	log('	$ node index.js <http-port>;');
+	log('	$ node index.js <http-port>');
+	log('	$ node index.js <http-port> [<file-path>]');
 	log('');
 	log('Example:');
 	log('	$ node index.js 3000');
+	log('	$ node index.js 3000 ~/my-static-folder');
 	return;
 }
 
@@ -30,6 +34,10 @@ if (1 > port || 65535 < port) {
 }
 if (1024 >= port) {
 	log('WARNING: Your port is not bigger than 1024, this might cause some problems!')
+}
+
+if (process.argv[3]) {
+	mStaticRoot = path.resolve(process.argv[3]);
 }
 
 // Configure the app instance
@@ -46,12 +54,12 @@ app.use(function (req, res, next) {
 });
 
 app.use(function (req, res, next) {
-	log('Got request: ' + req.url);
+	log('Got Request: ' + req.url);
 	next();
 });
 
-// TODO Serve other resources by given argv.
-app.use(serveStatic(__dirname, {'index': ['index.html', 'index.htm']}));
+log('Looking after folder:' + mStaticRoot);
+app.use(serveStatic(mStaticRoot, {'index': ['index.html', 'index.htm']}));
 
 app.all('*', function (req, res) {
 	var data = {
@@ -68,7 +76,7 @@ app.all('*', function (req, res) {
 			time: +new Date()
 		}
 	};
-	log(data);
+	log('Got Request: ' + JSON.stringify(data));
 	res.json(data);
 });
 

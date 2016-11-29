@@ -7,14 +7,17 @@
 
 ## How to use
 
-```bash
+```
 node index.js <http-port>
+node index.js <http-port> <folder-path>
 ```
 
 Example:
 
-```
+```bash
 node index.js 3000
+node index.js 3000 ~/my-static-folder
+node index.js 3000 ./www
 ```
 
 ## What it do
