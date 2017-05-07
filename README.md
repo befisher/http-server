@@ -7,15 +7,25 @@
 
 ## How to use
 
-```
-node index.js <http-port>
-node index.js <http-port> <folder-path>
-```
+Use the current directory as static directory and listen to port <http-port>.
 
-Example:
+<http-port> should be a number ranged in [1-65535].
 
 ```bash
+node index.js <http-port>
+
+# Example
 node index.js 3000
+```
+
+Use <folder-path> as static directory and listen to <http-port>.
+
+<folder-path> can be a relative path or a absolute path.
+
+```bash
+node index.js <http-port> <folder-path>
+
+# Examples
 node index.js 3000 ~/my-static-folder
 node index.js 3000 ./www
 ```
@@ -25,16 +35,19 @@ node index.js 3000 ./www
 Serve the static files.
 
 ```
+fisher@desktop ~/www $ node index.js 3000
+Looking after folder:/home/fisher/www.
+Server is running on http://127.0.0.1:3000.
+
 Got request: /favicon.ico
 ```
-
----
 
 Print the request detail out to console.
 
 ```
-fisher@desktop ~ $ node index.js 3000
-Server is running on http://127.0.0.1:3000
+fisher@desktop ~ $ node index.js 3000 ~/static
+Looking after folder:/home/fisher/static.
+Server is running on http://127.0.0.1:3000.
 
 Got request: /hello?param=apple
 { basic: 
@@ -54,6 +67,4 @@ Got request: /hello?param=apple
   query: { param: 'apple' },
   body: {} }
 ```
-
----
 
