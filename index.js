@@ -62,6 +62,7 @@ app.use(function (req, res, next) {
 
 log('Looking after folder:' + mStaticRoot);
 app.use(serveStatic(mStaticRoot, {'index': ['index.html', 'index.htm']}));
+app.use(serveStatic(__dirname + '/static', {'index': ['index.html', 'index.htm']}));
 
 app.all('*', function (req, res) {
 	var data = {
