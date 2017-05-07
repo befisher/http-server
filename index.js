@@ -38,6 +38,8 @@ if (1024 >= port) {
 
 if (process.argv[3]) {
 	mStaticRoot = path.resolve(process.argv[3]);
+} else {
+	mStaticRoot = path.resolve('.');
 }
 
 // Configure the app instance
